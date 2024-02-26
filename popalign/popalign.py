@@ -977,9 +977,8 @@ def reconstruction_errors(pop, M_norm, q):
 			Hj = p.starmap(nnls, [(Wj, M_norm[:,i].toarray().flatten()) for i in range(M_norm.shape[1])]) # project each cell i of normalized data onto the current W 
 		Hj = np.vstack(Hj) # Hj is projected data onto Wj
 		projs.append(Hj) # store projection
-		print(type(Hj))
 		Dj = Wj.dot(Hj.T) # compute reconstructed data: Dj = Wj.Hj\
-		print(type(Dj))
+		Dj = np.asarray(Dj)
 		curr_error = mean_squared_error(D, Dj)
 		errors.append(mean_squared_error(D, Dj)) # compute mean squared error between original data D and reconstructed data Dj
 	return errors, projs
